@@ -5,7 +5,7 @@
       "name": "launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/a.out",
+      "program": "${workspaceFolder}/build/out",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
