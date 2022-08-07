@@ -1,9 +1,13 @@
 #include <iostream>
+#include <regex>
+#include <string>
 
-#include "lib/sample.hpp"
+#include "lib/separated_values_field.hpp"
 
 int main() {
-  Sample value{};
-  std::cout << value.to_s() << std::endl;
+  SeparatedValuesField field{std::string{"aaa,,"}, std::regex{",|$"}};
+  for (const auto &value : field.values()) {
+    std::cout << '"' << value << '"' << std::endl;
+  }
   return 0;
 }

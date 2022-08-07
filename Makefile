@@ -15,19 +15,20 @@ clean:
 
 # ==== Begin Generated Config ==== #
 
-build/out: .cache/src/lib/sample.o .cache/src/main.o
+build/out: .cache/src/lib/separated_values_field.o .cache/src/main.o
 	@mkdir -p $(@D)
 	g++ $^ -o $@
 
-build/test: .cache/src/lib/sample.o .cache/test/main_test.o .cache/test/lib/sample_test.o
+build/test: .cache/src/lib/separated_values_field.o .cache/test/main_test.o .cache/test/lib/sample_test.o
 	@mkdir -p $(@D)
 	g++ $^ -o $@ -lgtest -lgtest_main -pthread
 
-.cache/src/lib/sample.o: src/lib/sample.cpp src/lib/sample.hpp
+.cache/src/lib/separated_values_field.o: src/lib/separated_values_field.cpp \
+ src/lib/separated_values_field.hpp
 	@mkdir -p $(@D)
 	g++ -c $< -o $@
 
-.cache/src/main.o: src/main.cpp src/lib/sample.hpp
+.cache/src/main.o: src/main.cpp src/lib/separated_values_field.hpp
 	@mkdir -p $(@D)
 	g++ -c $< -o $@
 
@@ -35,7 +36,8 @@ build/test: .cache/src/lib/sample.o .cache/test/main_test.o .cache/test/lib/samp
 	@mkdir -p $(@D)
 	g++ -c $< -o $@
 
-.cache/test/lib/sample_test.o: test/lib/sample_test.cpp test/lib/../../src/lib/sample.hpp
+.cache/test/lib/sample_test.o: test/lib/sample_test.cpp \
+ test/lib/../../src/lib/separated_values_field.hpp
 	@mkdir -p $(@D)
 	g++ -c $< -o $@
 
