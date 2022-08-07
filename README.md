@@ -17,11 +17,12 @@ clang-format -style=google -dump-config > .clang-format
 * .clang-format
 * (auto format on save) .vscode/settings.json
 
-### C++ config
+### C++ intellisense
 
 `[ctrl + p] > [C/C++: Edit Configurations (JSON)]`
 
 * .vscode/c_cpp_properties.json
+* .vscode/settings.json
 
 ### Build task
 
