@@ -1,12 +1,12 @@
 .PHONY: build run test clean
 
-build: build/out build/test
+build: build/out
 	@echo '' > /dev/null
 
 run: build
 	@build/out
 
-test: build/test
+test: build/out build/test
 	@build/test
 
 clean:
@@ -19,7 +19,7 @@ build/out: .cache/src/lib/sample.o .cache/src/main.o
 	@mkdir -p $(@D)
 	g++ $^ -o $@
 
-build/test: .cache/src/lib/sample.o .cache/test/main_test.o .cache/test/sample_test.o
+build/test: .cache/src/lib/sample.o .cache/test/main_test.o .cache/test/lib/sample_test.o
 	@mkdir -p $(@D)
 	g++ $^ -o $@ -lgtest -lgtest_main -pthread
 
@@ -35,7 +35,7 @@ build/test: .cache/src/lib/sample.o .cache/test/main_test.o .cache/test/sample_t
 	@mkdir -p $(@D)
 	g++ -c $< -o $@
 
-.cache/test/sample_test.o: test/sample_test.cpp test/../src/lib/sample.hpp
+.cache/test/lib/sample_test.o: test/lib/sample_test.cpp test/lib/../../src/lib/sample.hpp
 	@mkdir -p $(@D)
 	g++ -c $< -o $@
 

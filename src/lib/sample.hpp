@@ -3,18 +3,16 @@
 
 #include <string>
 
-namespace MyLib {
-  class Sample {
-  public:
-    Sample() = default;
-    Sample(const Sample&) = default;
-    Sample& operator=(const Sample&) = default;
-    Sample(Sample&&) = default;
-    Sample& operator=(Sample&&) = default;
-    virtual ~Sample() = default;
+class Sample {
+public:
+  Sample() = default;
+  Sample(const Sample&) = default;
+  Sample& operator=(const Sample&) = default;
+  Sample(Sample&&) = default;
+  Sample& operator=(Sample&&) = default;
+  virtual ~Sample() = default;
 
-    const std::string to_s() const;
-  };
-}  // namespace MyLib
+  const std::string to_s() const;
+};
 
 #endif
