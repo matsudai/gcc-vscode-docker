@@ -6,13 +6,13 @@ FROM debian:${image_tag}
 
 #
 # * vim git : Utilities.
-# * build-essential gdb clang-format: C/C++ debugger and formatter.
+# * build-essential cmake gdb clang-format: C/C++ test, debugger and formatter.
 # * ruby : Generate Makefile.
 #
 RUN apt update && \
     apt install -y \
         vim git \
-        build-essential gdb clang-format \
+        build-essential cmake gdb clang-format \
         ruby \
         && \
     apt clean && rm -rf /var/lib/apt/lists/*
@@ -22,5 +22,19 @@ ARG uid
 
 RUN groupadd -g ${gid} cppuser && \
     useradd -u ${uid} -g ${gid} -s /bin/bash -m cppuser
+
+#
+# GoogleTest (C++ testing library).
+#
+# refs: https://github.com/google/googletest/blob/main/googletest/README.md
+#
+RUN cd /usr/local/src && \
+    git clone --depth 1 https://github.com/google/googletest.git && \
+    cd googletest && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install
 
 USER cppuser
