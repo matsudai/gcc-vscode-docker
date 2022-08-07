@@ -1,4 +1,6 @@
+/.cache
 /.vscode/*.log
+/build
 
 # Prerequisites
 *.d

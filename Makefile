@@ -1,29 +1,42 @@
-.PHONY: build run clean
+.PHONY: build run test clean
 
-CC = g++
-
-build: build/a.out
+build: build/out build/test
 	@echo '' > /dev/null
 
 run: build
-	@build/a.out
+	@build/out
+
+test: build/test
+	@build/test
 
 clean:
-	rm -rf build
-	rm .vscode/*.log
+	rm -rf build .cache
+	rm -f .vscode/*.log
 
 # ==== Begin Generated Config ==== #
 
-build/a.out: build/lib/sample.o build/main.o
+build/out: .cache/src/lib/sample.o .cache/src/main.o
 	@mkdir -p $(@D)
-	$(CC) $^ -o $@
+	g++ $^ -o $@
 
-build/lib/sample.o: src/lib/sample.cpp src/lib/sample.hpp
+build/test: .cache/src/lib/sample.o .cache/test/main_test.o .cache/test/sample_test.o
 	@mkdir -p $(@D)
-	$(CC) -c $< -o $@
+	g++ $^ -o $@ -lgtest -lgtest_main -pthread
 
-build/main.o: src/main.cpp src/lib/sample.hpp
+.cache/src/lib/sample.o: src/lib/sample.cpp src/lib/sample.hpp
 	@mkdir -p $(@D)
-	$(CC) -c $< -o $@
+	g++ -c $< -o $@
+
+.cache/src/main.o: src/main.cpp src/lib/sample.hpp
+	@mkdir -p $(@D)
+	g++ -c $< -o $@
+
+.cache/test/main_test.o: test/main_test.cpp
+	@mkdir -p $(@D)
+	g++ -c $< -o $@
+
+.cache/test/sample_test.o: test/sample_test.cpp test/../src/lib/sample.hpp
+	@mkdir -p $(@D)
+	g++ -c $< -o $@
 
 # ==== End Generated Config ==== #
